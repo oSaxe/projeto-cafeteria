@@ -40,10 +40,11 @@ transformar_dicionario: Transforma os dados dos clientes em um dicionario para s
             return 0.0
         lotes_pontos = self.pontos // MIN_PONTOS_PARA_RESGATE
         desconto_pontos = lotes_pontos * MIN_PONTOS_PARA_RESGATE
+        
 
 
         
 clientes = Cliente(101, "Thiago", "61 985751420", 70)
 
-print(clientes.resgate_pontos())
+
                
