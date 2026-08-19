@@ -35,11 +35,15 @@ transformar_dicionario: Transforma os dados dos clientes em um dicionario para s
         self.pontos += novos_pontos
         return novos_pontos
 
-    def resgate_pontos(self, VALOR_DO_DESCONTO: float 10.0):
+    def resgate_pontos(self, VALOR_DO_DESCONTO: float = 10.0):
         if self.pontos < MIN_PONTOS_PARA_RESGATE:
             return 0.0
-
         lotes_pontos = self.pontos // MIN_PONTOS_PARA_RESGATE
-clientes = Clientes(101, "Thiago", "61 985751420", 0)
-print()
+        desconto_pontos = lotes_pontos * MIN_PONTOS_PARA_RESGATE
+
+
+        
+clientes = Cliente(101, "Thiago", "61 985751420", 70)
+
+print(clientes.resgate_pontos())
                
