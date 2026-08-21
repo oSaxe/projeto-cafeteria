@@ -1,8 +1,8 @@
 import menu
-import dados_clientes 
+import clientes 
 
 
-GerenciadorClientes = dados_clientes.GerenciadorClientes()
+gerenciador_clientes = clientes.GerenciadorClientes()
 
-menu.menu(GerenciadorClientes)
+menu.menu(gerenciador_clientes)
 

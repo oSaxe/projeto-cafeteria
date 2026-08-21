@@ -74,7 +74,12 @@ class GerenciadorClientes:
     def mostrar_arquivo(self):
         try:
             df_dados_clientes = pd.read_csv(self.caminho_do_projeto)
+
+            df_dados_clientes["valor_total_gasto"] = pd.to_numeric(df_dados_clientes["valor_total_gasto"], errors="coerce").fillna(0.0)
+            df_dados_clientes["pontos"] = pd.to_numeric(df_dados_clientes["pontos"], errors="coerce").fillna(0)
+
             return df_dados_clientes
+        
         except FileNotFoundError:
             auxiliares.limpar_terminal()
             return "ARQUIVO NÃO ENCONTRADO."
@@ -98,7 +103,7 @@ class GerenciadorClientes:
             print("\n")
             return cliente.to_string(index=False)
 
-    def atualizar_planilha(self):
+    def atualizar_nome_planilha(self):
         if not self.caminho_do_projeto.is_file():
             return("ARQUIVO NÃO ENCONTRADO.")
         
@@ -107,11 +112,14 @@ class GerenciadorClientes:
         if df_dados_clientes.empty:
             return "ARQUIVO VAZIO."
 
+        auxiliares.limpar_terminal()
+
         cpf_alvo = input("Digite o CPF do cliente que deseja alterar: ").strip()
 
         indice = df_dados_clientes.index[df_dados_clientes["cpf"].astype(str) == cpf_alvo].to_list()
 
         if not indice:
+            auxiliares.limpar_terminal()
             return "CLIENTE NÃO ENCONTRADO."
 
         index_cliente = indice[0]
@@ -127,15 +135,102 @@ class GerenciadorClientes:
 
         novo_nome = input(f"Nome Antigo: [{df_dados_clientes.at[index_cliente, 'nome']}] | Novo Nome: ").strip()
 
-        novo_telefone = input(f"Telefone Antigo: [{df_dados_clientes.at[index_cliente, 'telefone']}] | Novo Telefone: ").strip()
-
         if novo_nome:
-            novo_nome = df_dados_clientes.at[index_cliente, "nome"].strip()
-        if novo_telefone:
-            novo_telefone = df_dados_clientes.at[index_cliente, "telefone"].strip()
+            df_dados_clientes.at[index_cliente, "nome"] = novo_nome.strip()
 
         df_dados_clientes.to_csv(self.caminho_do_projeto, index=False)
 
         auxiliares.limpar_terminal()
 
-        return "Dados atualizados com sucesso."
+        if novo_nome == "":
+            return "NOME permanece o mesmo."
+        else:
+            return "NOME atualizado com sucesso."
+    
+    def atualizar_telefone_planilha(self):
+        if not self.caminho_do_projeto.is_file():
+            return("ARQUIVO NÃO ENCONTRADO.")
+        
+        df_dados_clientes = pd.read_csv(self.caminho_do_projeto)
+
+        if df_dados_clientes.empty:
+            return "ARQUIVO VAZIO."
+
+        auxiliares.limpar_terminal()
+
+        cpf_alvo = input("Digite o CPF do cliente que deseja alterar: ").strip()
+
+        indice = df_dados_clientes.index[df_dados_clientes["cpf"].astype(str) == cpf_alvo].to_list()
+
+        if not indice:
+            auxiliares.limpar_terminal()
+            return "CLIENTE NÃO ENCONTRADO."
+
+        index_cliente = indice[0]
+
+        auxiliares.limpar_terminal()
+
+        print("\n---------------")
+        print(" DADOS ATUAIS")
+        print("---------------\n")
+        print(df_dados_clientes.loc[[index_cliente]].to_string(index=False))
+
+        print("\nPreencha com os novos dados, caso deseje manter o valor atual pressione ENTER.")
+
+        novo_telefone = input(f"Telefone Antigo: [{df_dados_clientes.at[index_cliente, 'telefone']}] | Novo Telefone: ").strip()
+
+        if novo_telefone:
+            df_dados_clientes.at[index_cliente, "telefone"] = novo_telefone.strip()
+
+        df_dados_clientes.to_csv(self.caminho_do_projeto, index=False)
+
+        auxiliares.limpar_terminal()
+
+        if novo_telefone == "":
+            return "TELEFONE permanece o mesmo."
+        else:
+            return "TELEFONE atualizado com sucesso."
+        
+    def atualizar_cpf_planilha(self):
+        if not self.caminho_do_projeto.is_file():
+            return("ARQUIVO NÃO ENCONTRADO.")
+        
+        df_dados_clientes = pd.read_csv(self.caminho_do_projeto)
+
+        if df_dados_clientes.empty:
+            return "ARQUIVO VAZIO."
+
+        auxiliares.limpar_terminal()
+        
+        cpf_alvo = input("Digite o CPF do cliente que deseja alterar: ").strip()
+
+        indice = df_dados_clientes.index[df_dados_clientes["cpf"].astype(str) == cpf_alvo].to_list()
+
+        if not indice:
+            auxiliares.limpar_terminal()
+            return "CLIENTE NÃO ENCONTRADO."
+
+        index_cliente = indice[0]
+
+        auxiliares.limpar_terminal()
+
+        print("\n---------------")
+        print(" DADOS ATUAIS")
+        print("---------------\n")
+        print(df_dados_clientes.loc[[index_cliente]].to_string(index=False))
+
+        print("\nPreencha com os novos dados, caso deseje manter o valor atual pressione ENTER.")
+
+        novo_cpf = input(f"CPF Antigo: [{df_dados_clientes.at[index_cliente, 'cpf']}] | Novo CPF: ").strip()
+
+        if novo_cpf:
+            df_dados_clientes.at[index_cliente, "cpf"] = novo_cpf.strip()
+
+        df_dados_clientes.to_csv(self.caminho_do_projeto, index=False)
+
+        auxiliares.limpar_terminal()
+
+        if novo_cpf == "":
+            return "CPF permanece o mesmo."
+        else:
+            return "CPF atualizado com sucesso."
