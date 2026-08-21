@@ -1,9 +1,11 @@
 import auxiliares
+from time import sleep
 from rich.traceback import install
 install()
 
-def menu():
+def menu(GerenciadorClientes):
     while True:
+        auxiliares.limpar_terminal()
         print("----------MENU----------")
         print("1. Clientes") #Contém tudo relacionado aos clientes.
         print("2. Produtos & Cardápio") #Dentro dessa opção do menu temos opções relacionadas aos produtos, como cadastro, listagem, e edição dos mesmos, e os ingredientes e os valores dos itens.
@@ -15,7 +17,7 @@ def menu():
         auxiliares.limpar_terminal()
 
         if opcao == "1":
-            menu_clientes()
+            menu_clientes(GerenciadorClientes)
 
         elif opcao == "2":
             menu_produtos()
@@ -28,11 +30,12 @@ def menu():
         else:
             print("Valor invalido!")
 
-def menu_clientes():
+def menu_clientes(GerenciadorClientes):
     while True:
+        auxiliares.limpar_terminal()
         print(f"----------MENU CLIENTES----------")
-        print("1. Cadastro ID")
-        print("2. Listar IDs")
+        print("1. Cadastro Cliente")
+        print("2. Listar Clientes")
         print("3. Buscar por CPF")
         print("4. Atualizar Dados")
         print("5. Remover Cliente")
@@ -43,7 +46,43 @@ def menu_clientes():
         auxiliares.limpar_terminal()
 
         if opcao == "1":
-            print("Cadastro ID")
+            while True:
+                auxiliares.limpar_terminal()
+
+                print("----------CADASTRO----------")
+                print("1. Cadastrar Cliente. ")
+                print("0. Voltar")
+
+                continuar = input("~> ").strip()
+
+                if continuar == "1":
+                    GerenciadorClientes.cadastrar_cliente()
+                elif continuar == "0":
+                    break
+                else:
+                    auxiliares.limpar_terminal()
+                    print("OPÇÃO INVALIDA!")
+                    print("\nAperte enter para retornar.")
+                    input("")
+
+        elif opcao == "2":
+            print(GerenciadorClientes.mostrar_arquivo())
+            print("\nAperte enter para retornar.")
+            input("")
+            auxiliares.limpar_terminal()
+
+        elif opcao == "3":
+            print(GerenciadorClientes.buscar_cpf())
+            print("\nAperte enter para retornar.")
+            input("")
+            auxiliares.limpar_terminal()
+
+        elif opcao == "4":
+            print(GerenciadorClientes.atualizar_planilha())
+            print("\nAperte enter para retornar.")
+            input("")
+            auxiliares.limpar_terminal()
+            
         elif opcao == "0":
             break
 
