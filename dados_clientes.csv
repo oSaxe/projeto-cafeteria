@@ -1,9 +1,3 @@
-id,nome,telefone,cpf,valor_total_gasto,pontos
-1,Evelyn,(61)9584-8727,038.201.661-06,0.0,0
-2,Thiago,(61)98575-1420,077.824.571-30,0.0,0
-3,,,,0.0,0
-4,,,,0.0,0
-5,,,,0.0,0
-6,,,,0.0,0
-7,,,,0.0,0
-8,,,,0.0,0
+id,nome,cpf,telefone,email,valor_total_gasto,pontos
+1,Thiago,077.824.571-30,(61)98575-1420,thiagogzao@gmail.com,0.0,0
+2,Evelyn Maura,038.201.661-06,(61)99584-8727,evelynmauracsantos@gmail.com,0.0,0
