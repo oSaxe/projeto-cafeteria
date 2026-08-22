@@ -1,9 +1,8 @@
 import auxiliares
 from time import sleep
-from rich.traceback import install
-install()
 
-def menu(gerenciador_clientes):
+
+def menu(gerenciador_clientes, gerenciador_produtos, gerenciador_pedidos):
     while True:
         auxiliares.limpar_terminal()
         print("----------MENU----------")
@@ -20,10 +19,10 @@ def menu(gerenciador_clientes):
             menu_clientes(gerenciador_clientes)
 
         elif opcao == "2":
-            menu_produtos()
+            menu_produtos(gerenciador_produtos)
 
         elif opcao == "3":
-            menu_pedidos()
+            menu_pedidos(gerenciador_pedidos)
 
         elif opcao == "0":
             break
@@ -98,8 +97,9 @@ def menu_clientes(gerenciador_clientes):
                 auxiliares.limpar_terminal()
                 print("----------ATUALIZAR DADOS----------")
                 print("1. Atualizar NOME")
-                print("2. Atualizar TELEFONE")
-                print("3. Atualizar CPF")
+                print("2. Atualizar CPF")
+                print("3. Atualizar TELEFONE")
+                print("4. Atualizar EMAIL")
                 print("0. Voltar")
 
                 opcao = input("~> ").strip()
@@ -110,11 +110,41 @@ def menu_clientes(gerenciador_clientes):
                     input("")
                     auxiliares.limpar_terminal()
                 elif opcao == "2":
-                    print(gerenciador_clientes.atualizar_telefone_planilha())
+                    print(gerenciador_clientes.atualizar_cpf_planilha())
                     print("\nAperte ENTER para retornar")
                     input("")
                 elif opcao == "3":
-                    print(gerenciador_clientes.atualizar_cpf_planilha())
+                    print(gerenciador_clientes.atualizar_telefone_planilha())
+                    print("\nAperte ENTER para retornar")
+                    input("")
+                    auxiliares.limpar_terminal()
+                elif opcao == "4":
+                    print(gerenciador_clientes.atualizar_email_planilha())
+                    print("\nAperte ENTER para retornar")
+                    input("")
+                elif opcao == "0":
+                    break
+                else:
+                    auxiliares.limpar_terminal()
+                    print("OPÇÃO INVALIDA!")
+                    print("\nAperte ENTER para retornar")
+                    input("")
+
+        elif opcao == "5":
+            while True:
+                print("----------REMOÇÃO CLIENTE----------")
+                print("1. Remover Cliente")
+                print("0. Voltar")  
+
+                opcao = str(input("~> "))
+
+                if opcao == "1":
+                    auxiliares.limpar_terminal()
+                    nome = input("Digite o NOME do cliente: ").strip().title()
+                    telefone = str(input("Digite o TELEFONE do cliente: ")).strip()
+                    cpf = str(input("Digite o CPF do cliente: ")).strip()
+
+                    gerenciador_clientes.remover_cliente(nome, telefone, cpf)
                     print("\nAperte ENTER para retornar")
                     input("")
                     auxiliares.limpar_terminal()
@@ -125,12 +155,15 @@ def menu_clientes(gerenciador_clientes):
                     print("OPÇÃO INVALIDA!")
                     print("\nAperte ENTER para retornar")
                     input("")
-
-            
         elif opcao == "0":
             break
+        else:
+            auxiliares.limpar_terminal()
+            print("OPÇÃO INVALIDA!")
+            print("\nAperte ENTER para retornar")
+            input("")
 
-def menu_produtos():
+def menu_produtos(gerenciador_produtos):
     while True:
         print(f"----------MENU PRODUTOS & CARDÁPIO----------")
         print("1. Cadastrar Produto")
@@ -150,7 +183,7 @@ def menu_produtos():
         elif opcao == "0":
             break
 
-def menu_pedidos():
+def menu_pedidos(gerenciador_pedidos):
     while True:
         print(f"----------MENU PEDIDOS----------")
         print("1. Cadastrar Pedido")
