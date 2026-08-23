@@ -1,0 +1,4 @@
+id,nome,categoria,preco,ingrediente,quantidade_estoque,ativo
+1,Caixa,Objeto,200.0,papelão,2,True
+2,Mouse,Eletronico,600.0,Componentes eletronicos,0,True
+3,Café,Café,12.0,"Grãos de café, açucar, leite",5,True
